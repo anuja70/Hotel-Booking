@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Heart, MapPin, Star, SlidersHorizontal } from "lucide-react";
 
 const hotels = [
@@ -236,9 +237,12 @@ function Hotels() {
                       <span>/ night</span>
                     </div>
 
-                    <button className="details-button">
-                      View Hotel
-                    </button>
+                   <Link
+                     to={`/hotels/${hotel.id}`}
+                     className="details-button"
+                   >
+                     View Hotel
+                   </Link>
 
                   </div>
 

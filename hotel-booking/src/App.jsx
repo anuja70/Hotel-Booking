@@ -6,6 +6,10 @@ import {
 
 import Home from "./pages/Home";
 import Hotels from "./pages/Hotels";
+import HotelDetails from "./pages/HotelDetails";
+import Booking from "./pages/Booking";
+
+
 
 function App() {
   return (
@@ -17,6 +21,9 @@ function App() {
 
         <Route path="/hotels" element={<Hotels />} />
 
+        <Route path="/hotels/:id" element={<HotelDetails />} />
+        
+        <Route path="/bookings/:id" element={<Booking />} />
       </Routes>
 
     </BrowserRouter>
