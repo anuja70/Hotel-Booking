@@ -9,12 +9,9 @@ import Hotels from "./pages/Hotels";
 import HotelDetails from "./pages/HotelDetails";
 import Booking from "./pages/Booking";
 
-
-
 function App() {
   return (
     <BrowserRouter>
-
       <Routes>
 
         <Route path="/" element={<Home />} />
@@ -22,10 +19,10 @@ function App() {
         <Route path="/hotels" element={<Hotels />} />
 
         <Route path="/hotels/:id" element={<HotelDetails />} />
-        
-        <Route path="/bookings/:id" element={<Booking />} />
-      </Routes>
 
+        <Route path="/booking/:id" element={<Booking />} />
+
+      </Routes>
     </BrowserRouter>
   );
 }
