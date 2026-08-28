@@ -9,6 +9,7 @@ import Hotels from "./pages/Hotels";
 import HotelDetails from "./pages/HotelDetails";
 import Booking from "./pages/Booking";
 import BookingConfirmation from "./pages/BookingConfirmation";
+import MyBookings from "./pages/MyBookings";
 
 function App() {
   return (
@@ -33,7 +34,11 @@ function App() {
           path="/booking-confirmation"
           element={<BookingConfirmation />}
         />
-
+        
+          <Route
+            path="/my-bookings"
+            element={<MyBookings />}
+                />
       </Routes>
     </BrowserRouter>
   );
