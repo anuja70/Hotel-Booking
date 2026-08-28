@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import Hotels from "./pages/Hotels";
 import HotelDetails from "./pages/HotelDetails";
 import Booking from "./pages/Booking";
+import BookingConfirmation from "./pages/BookingConfirmation";
 
 function App() {
   return (
@@ -18,9 +19,20 @@ function App() {
 
         <Route path="/hotels" element={<Hotels />} />
 
-        <Route path="/hotels/:id" element={<HotelDetails />} />
+        <Route
+          path="/hotels/:id"
+          element={<HotelDetails />}
+        />
 
-        <Route path="/booking/:id" element={<Booking />} />
+        <Route
+          path="/hotels/:id/book"
+          element={<Booking />}
+        />
+
+        <Route
+          path="/booking-confirmation"
+          element={<BookingConfirmation />}
+        />
 
       </Routes>
     </BrowserRouter>

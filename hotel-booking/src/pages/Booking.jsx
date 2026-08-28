@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   ArrowLeft,
-  Check,
   CreditCard,
   ShieldCheck,
 } from "lucide-react";
@@ -27,6 +26,7 @@ const hotels = {
 
 function Booking() {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const hotel = hotels[id];
 
@@ -39,6 +39,7 @@ function Booking() {
     return (
       <div className="not-found">
         <h1>Hotel not found</h1>
+
         <Link to="/hotels">
           Back to hotels
         </Link>
@@ -47,10 +48,32 @@ function Booking() {
   }
 
   const serviceFee = 500;
-  const total = hotel.price + serviceFee;
+
+  const roomPrice =
+    roomType === "Premium Suite"
+      ? hotel.price + 3500
+      : hotel.price;
+
+  const total = roomPrice + serviceFee;
+
+  const handleConfirmBooking = () => {
+    navigate("/booking-confirmation", {
+      state: {
+        hotelName: hotel.name,
+        location: hotel.location,
+        roomType: roomType,
+        guests: guests,
+        checkIn: checkIn || "Not selected",
+        checkOut: checkOut || "Not selected",
+        total: total,
+      },
+    });
+  };
 
   return (
     <div className="booking-page">
+
+      {/* HEADER */}
 
       <header className="booking-header">
 
@@ -75,11 +98,15 @@ function Booking() {
       </header>
 
 
+      {/* MAIN */}
+
       <main className="container booking-layout">
 
-        {/* FORM */}
+        {/* LEFT SIDE */}
 
         <section className="booking-form">
+
+          {/* TRIP */}
 
           <div className="form-card">
 
@@ -89,7 +116,9 @@ function Booking() {
 
               <div className="form-group">
 
-                <label>Check-in</label>
+                <label>
+                  Check-in
+                </label>
 
                 <input
                   type="date"
@@ -101,9 +130,12 @@ function Booking() {
 
               </div>
 
+
               <div className="form-group">
 
-                <label>Check-out</label>
+                <label>
+                  Check-out
+                </label>
 
                 <input
                   type="date"
@@ -120,7 +152,9 @@ function Booking() {
 
             <div className="form-group">
 
-              <label>Guests</label>
+              <label>
+                Guests
+              </label>
 
               <select
                 value={guests}
@@ -152,9 +186,14 @@ function Booking() {
           </div>
 
 
+          {/* ROOM */}
+
           <div className="form-card">
 
-            <h2>Choose your room</h2>
+            <h2>
+              Choose your room
+            </h2>
+
 
             <label className="room-option">
 
@@ -162,21 +201,29 @@ function Booking() {
                 type="radio"
                 name="room"
                 value="Deluxe Room"
-                checked={roomType === "Deluxe Room"}
+                checked={
+                  roomType === "Deluxe Room"
+                }
                 onChange={(e) =>
                   setRoomType(e.target.value)
                 }
               />
 
               <div>
-                <strong>Deluxe Room</strong>
+
+                <strong>
+                  Deluxe Room
+                </strong>
+
                 <p>
                   King-size bed · 2 guests
                 </p>
+
               </div>
 
               <span>
-                Rs. {hotel.price.toLocaleString()}
+                Rs.{" "}
+                {hotel.price.toLocaleString()}
               </span>
 
             </label>
@@ -188,21 +235,29 @@ function Booking() {
                 type="radio"
                 name="room"
                 value="Premium Suite"
-                checked={roomType === "Premium Suite"}
+                checked={
+                  roomType === "Premium Suite"
+                }
                 onChange={(e) =>
                   setRoomType(e.target.value)
                 }
               />
 
               <div>
-                <strong>Premium Suite</strong>
+
+                <strong>
+                  Premium Suite
+                </strong>
+
                 <p>
                   Large suite · 3 guests
                 </p>
+
               </div>
 
               <span>
-                Rs. {(hotel.price + 3500).toLocaleString()}
+                Rs.{" "}
+                {(hotel.price + 3500).toLocaleString()}
               </span>
 
             </label>
@@ -210,9 +265,13 @@ function Booking() {
           </div>
 
 
+          {/* PAYMENT */}
+
           <div className="form-card">
 
-            <h2>Payment method</h2>
+            <h2>
+              Payment method
+            </h2>
 
             <div className="payment-box">
 
@@ -237,11 +296,16 @@ function Booking() {
         </section>
 
 
-        {/* SUMMARY */}
+        {/* RIGHT SIDE */}
 
         <aside className="booking-summary-card">
 
-          <h2>Booking summary</h2>
+          <h2>
+            Booking summary
+          </h2>
+
+
+          {/* HOTEL */}
 
           <div className="summary-hotel">
 
@@ -251,68 +315,121 @@ function Booking() {
 
             <div>
 
-              <strong>{hotel.name}</strong>
+              <strong>
+                {hotel.name}
+              </strong>
 
-              <p>{hotel.location}</p>
+              <p>
+                {hotel.location}
+              </p>
 
             </div>
 
           </div>
 
+
+          {/* DETAILS */}
 
           <div className="summary-details">
 
             <div>
-              <span>Room</span>
-              <strong>{roomType}</strong>
+
+              <span>
+                Room
+              </span>
+
+              <strong>
+                {roomType}
+              </strong>
+
             </div>
 
-            <div>
-              <span>Guests</span>
-              <strong>{guests}</strong>
-            </div>
 
             <div>
-              <span>Check-in</span>
+
+              <span>
+                Guests
+              </span>
+
+              <strong>
+                {guests}
+              </strong>
+
+            </div>
+
+
+            <div>
+
+              <span>
+                Check-in
+              </span>
+
               <strong>
                 {checkIn || "Select date"}
               </strong>
+
             </div>
 
+
             <div>
-              <span>Check-out</span>
+
+              <span>
+                Check-out
+              </span>
+
               <strong>
                 {checkOut || "Select date"}
               </strong>
+
             </div>
 
           </div>
 
+
+          {/* PRICE */}
 
           <div className="summary-price">
 
             <div>
-              <span>Room price</span>
+
               <span>
-                Rs. {hotel.price.toLocaleString()}
+                Room price
               </span>
+
+              <span>
+                Rs.{" "}
+                {roomPrice.toLocaleString()}
+              </span>
+
             </div>
 
+
             <div>
-              <span>Service fee</span>
+
               <span>
-                Rs. {serviceFee.toLocaleString()}
+                Service fee
               </span>
+
+              <span>
+                Rs.{" "}
+                {serviceFee.toLocaleString()}
+              </span>
+
             </div>
+
 
             <hr />
 
+
             <div className="summary-total">
 
-              <strong>Total</strong>
+              <strong>
+                Total
+              </strong>
 
               <strong>
-                Rs. {total.toLocaleString()}
+                Rs.{" "}
+                {total.toLocaleString()}
               </strong>
 
             </div>
@@ -320,10 +437,17 @@ function Booking() {
           </div>
 
 
-          <button className="confirm-button">
+          {/* CONFIRM BUTTON */}
+
+          <button
+            className="confirm-button"
+            onClick={handleConfirmBooking}
+          >
             Confirm Booking
           </button>
 
+
+          {/* SECURE */}
 
           <div className="secure-note">
 
@@ -343,4 +467,4 @@ function Booking() {
   );
 }
 
-export default Booking;
+export default Booking;s
