@@ -11,6 +11,7 @@ import Booking from "./pages/Booking";
 import BookingConfirmation from "./pages/BookingConfirmation";
 import MyBookings from "./pages/MyBookings";
 import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 function App() {
   return (
@@ -45,6 +46,9 @@ function App() {
             path="/login"
             element={<Login />}
           />
+
+          <Route path="/register" element={<Register />} />
+          
       </Routes>
     </BrowserRouter>
   );
