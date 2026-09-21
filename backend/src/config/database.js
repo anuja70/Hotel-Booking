@@ -1,14 +1,12 @@
-import mongoose from "mongoose";
+import mysql from "mysql2/promise";
 
-const connectDB = async () => {
-  try {
-    await mongoose.connect("mongodb://127.0.0.1:27017/stayease");
+const db = await mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "Anuja123@",
+  database: "stayease",
+});
 
-    console.log("MongoDB connected successfully");
-  } catch (error) {
-    console.error("MongoDB connection failed:", error.message);
-    process.exit(1);
-  }
-};
+console.log("MySQL connected successfully");
 
-export default connectDB;
+export default db;
